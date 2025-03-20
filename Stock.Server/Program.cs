@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MvcMovie.Models;
 using Stock.Server.Data;
 
 namespace Stock.Server
@@ -20,6 +21,14 @@ namespace Stock.Server
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            #region Seed Data
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                SeedData.Initialize(services);
+            }
+            #endregion
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
