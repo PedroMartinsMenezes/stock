@@ -26,7 +26,11 @@ import { TableBasicDemoComponent } from './table-basic-demo/table-basic-demo.com
       theme: {
         preset: Aura,
         options: {
-          darkModeSelector: '.my-app-dark'
+          darkModeSelector: '.my-app-dark',
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng'
+          }
         }
       }
     })
