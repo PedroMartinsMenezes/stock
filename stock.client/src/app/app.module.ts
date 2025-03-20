@@ -24,7 +24,10 @@ import { TableBasicDemoComponent } from './table-basic-demo/table-basic-demo.com
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Material
+        preset: Aura,
+        options: {
+          darkModeSelector: '.my-app-dark'
+        }
       }
     })
   ],
