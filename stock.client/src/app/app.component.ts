@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TableModule } from 'primeng/table';
 
 interface WeatherForecast {
   date: string;

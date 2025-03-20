@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import Material from '@primeng/themes/material';
+import { TableBasicDemoComponent } from './table-basic-demo/table-basic-demo.component';
 //
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import Aura from '@primeng/themes/aura';
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Material
       }
     })
   ],
