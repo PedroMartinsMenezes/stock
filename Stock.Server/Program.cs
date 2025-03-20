@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Stock.Server.Data;
 
 namespace Stock.Server
 {
@@ -7,10 +9,13 @@ namespace Stock.Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            //Database
+            builder.Services.AddDbContext<StockServerContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("StockServerContext") ?? throw new InvalidOperationException("Connection string 'StockServerContext' not found.")));
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            //Swagger
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -29,7 +34,6 @@ namespace Stock.Server
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
