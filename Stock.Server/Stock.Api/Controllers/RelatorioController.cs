@@ -17,7 +17,7 @@ namespace Stock.Server.Controllers
         }
 
         [HttpGet("GetEstoque")]
-        public async Task<IActionResult> GetEstoque(DateTime dia, string codigoProduto)
+        public async Task<IActionResult> GetEstoque(DateTime dia, string codigoProduto = "PS1")
         {
             return Ok(await _movimentacaoDomain.GetEstoque(dia, codigoProduto));
         }
