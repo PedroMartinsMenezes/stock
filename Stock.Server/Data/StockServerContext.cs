@@ -11,5 +11,6 @@ namespace Stock.Server.Data
 
         public DbSet<Movie> Movie { get; set; } = default!;
         public DbSet<Produto> Produto { get; set; } = default!;
+        public DbSet<Movimentacao> Movimentacao { get; set; } = default!;
     }
 }
