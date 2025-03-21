@@ -37,16 +37,16 @@ namespace Stock.Server.Controllers
             return Ok(Produto);
         }
 
-        [HttpGet("CreateProduto")]
-        public async Task<IActionResult> Create([FromQuery] Produto entity)
+        [HttpPost("CreateProduto")]
+        public async Task<IActionResult> Create(Produto entity)
         {
             _context.Add(entity);
             await _context.SaveChangesAsync();
             return Ok(entity);
         }
 
-        [HttpGet("EditProduto")]
-        public async Task<IActionResult> Edit([FromQuery] Produto entity)
+        [HttpPost("EditProduto")]
+        public async Task<IActionResult> Edit(Produto entity)
         {
             try
             {

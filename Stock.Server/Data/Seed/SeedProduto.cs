@@ -20,7 +20,7 @@ public static class SeedProduto
                 Produto("Playstation 4", "PS4"),
                 Produto("Playstation 5", "PS5"),
                 Produto("XBOX", "XBO"),
-                Produto("XBOX 360", "XB360"),
+                Produto("XBOX 360", "X360"),
                 Produto("XBOX One", "XBONE"),
                 Produto("XBOX Series S", "XBS"),
                 Produto("XBOX Series X", "XBX")
