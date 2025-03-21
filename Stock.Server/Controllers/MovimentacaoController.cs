@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MvcMovie.Models;
+using Stock.Server.Models;
 using Stock.Server.Data;
 
 namespace Stock.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EstoqueController : ControllerBase
+    public class MovimentacaoController : ControllerBase
     {
         private readonly StockServerContext _context;
 
-        public EstoqueController(StockServerContext context)
+        public MovimentacaoController(StockServerContext context)
         {
             _context = context;
         }
@@ -19,43 +19,43 @@ namespace Stock.Server.Controllers
         [HttpGet("GetMovimentacoes")]
         public async Task<ActionResult> Index()
         {
-            return Ok(await _context.Movie.ToListAsync());
+            return Ok(await _context.Movimentacao.ToListAsync());
         }
 
-        [HttpGet("GetMovieById")]
+        [HttpGet("GetMovimentacaoById")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var movie = await _context.Movie.FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
+            var Movimentacao = await _context.Movimentacao.FirstOrDefaultAsync(m => m.Id == id);
+            if (Movimentacao == null)
             {
                 return NotFound();
             }
-            return Ok(movie);
+            return Ok(Movimentacao);
         }
 
-        [HttpGet("CreateMovie")]
-        public async Task<IActionResult> Create([FromQuery] Movie movie)
+        [HttpPost("CreateMovimentacao")]
+        public async Task<IActionResult> Create(Movimentacao Movimentacao)
         {
-            _context.Add(movie);
+            _context.Add(Movimentacao);
             await _context.SaveChangesAsync();
-            return Ok(movie);
+            return Ok(Movimentacao);
         }
 
-        [HttpGet("EditMovie")]
-        public async Task<IActionResult> Edit([FromQuery] Movie movie)
+        [HttpPost("EditMovimentacao")]
+        public async Task<IActionResult> Edit(Movimentacao Movimentacao)
         {
             try
             {
-                _context.Update(movie);
+                _context.Update(Movimentacao);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Movie.Any(e => e.Id == movie.Id))
+                if (!_context.Movimentacao.Any(e => e.Id == Movimentacao.Id))
                 {
                     return NotFound();
                 }
@@ -64,16 +64,16 @@ namespace Stock.Server.Controllers
                     throw;
                 }
             }
-            return Ok(movie);
+            return Ok(Movimentacao);
         }
 
-        [HttpGet("DeleteMovie")]
+        [HttpGet("DeleteMovimentacao")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.FindAsync(id);
-            if (movie != null)
+            var Movimentacao = await _context.Movimentacao.FindAsync(id);
+            if (Movimentacao != null)
             {
-                _context.Movie.Remove(movie);
+                _context.Movimentacao.Remove(Movimentacao);
                 await _context.SaveChangesAsync();
                 return Ok();
             }

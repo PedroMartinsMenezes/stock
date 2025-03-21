@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stock.Server.Data;
 
-namespace MvcMovie.Models;
+namespace Stock.Server.Models;
 
 public static class SeedProduto
 {

@@ -1,4 +1,4 @@
-﻿namespace MvcMovie.Models;
+﻿namespace Stock.Server.Models;
 
 public class Movimentacao
 {

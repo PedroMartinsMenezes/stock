@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MvcMovie.Models;
 using Stock.Server.Data;
+using Stock.Server.Models;
 
 namespace Stock.Server.Controllers
 {

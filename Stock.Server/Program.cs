@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MvcMovie.Models;
+using Stock.Server.Models;
 using Stock.Server.Data;
 
 namespace Stock.Server
@@ -26,7 +26,6 @@ namespace Stock.Server
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                SeedMovie.Initialize(services);
                 SeedProduto.Initialize(services);
             }
             #endregion
