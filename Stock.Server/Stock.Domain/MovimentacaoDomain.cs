@@ -19,7 +19,7 @@ namespace Stock.Domain
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<MovimentacaoResponse> Create(MovimentacaoRequest item)
+        public async Task<MovimentacaoResponse> Create(MovimentacaoCreateRequest item)
         {
             if ((int)item.Tipo != (int)TipoMovimentacao.Entrada && (int)item.Tipo != (int)TipoMovimentacao.Saida)
             {
@@ -35,7 +35,8 @@ namespace Stock.Domain
                 throw new InvalidOperationException("Código de produto inválido.");
             }
             int quantidade = item.Tipo == TipoMovimentacao.Entrada ? item.Quantidade : -item.Quantidade;
-            if (produto.Movimentacoes.Sum(x => x.Quantidade) + quantidade < 0)
+            int quantidadeEstoque = produto.Movimentacoes.Sum(x => x.Quantidade * (x.Tipo == TipoMovimentacao.Entrada ? 1 : -1));
+            if (quantidadeEstoque + quantidade < 0)
             {
                 throw new InvalidOperationException("Quantidade informada gerará estoque negativo.");
             }
@@ -84,7 +85,7 @@ namespace Stock.Domain
             return (await _repository.List()).Select(x => new MovimentacaoResponse(x));
         }
 
-        public async Task<int> Update(MovimentacaoRequest item)
+        public async Task<int> Update(MovimentacaoUpdateRequest item)
         {
             return await _repository.Update(item.ToEntity());
         }

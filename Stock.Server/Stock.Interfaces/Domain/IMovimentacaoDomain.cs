@@ -7,11 +7,11 @@ namespace Stock.Interfaces
 {
     public interface IMovimentacaoDomain
     {
-        Task<MovimentacaoResponse> Create(MovimentacaoRequest item);
+        Task<MovimentacaoResponse> Create(MovimentacaoCreateRequest item);
         Task<RelatorioResponse> GetEstoque(DateTime dia, string codigoProduto);
         Task<int> Delete(int id);
         Task<MovimentacaoResponse> GetById(int id);
         Task<IEnumerable<MovimentacaoResponse>> List();
-        Task<int> Update(MovimentacaoRequest item);
+        Task<int> Update(MovimentacaoUpdateRequest item);
     }
 }

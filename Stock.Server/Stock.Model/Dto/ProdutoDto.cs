@@ -19,9 +19,7 @@ namespace Stock.Model.Dto
         public ProdutoResponse(Produto other)
         {
 
-            Id = Id;
-            Nome = Nome;
-            Codigo = Codigo;
+            (Id, Nome, Codigo) = (other.Id, other.Nome, other.Codigo);
         }
 
         public int Id { get; set; }

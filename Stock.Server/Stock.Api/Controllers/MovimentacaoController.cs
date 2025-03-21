@@ -26,13 +26,13 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(MovimentacaoRequest request)
+        public async Task<IActionResult> Create(MovimentacaoCreateRequest request)
         {
             return Ok(await _domain.Create(request));
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update(MovimentacaoRequest entity)
+        public async Task<IActionResult> Update(MovimentacaoUpdateRequest entity)
         {
             return await _domain.Update(entity) == 1 ? Ok() : NotFound();
         }

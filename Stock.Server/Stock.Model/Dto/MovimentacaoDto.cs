@@ -3,7 +3,19 @@ using System;
 
 namespace Stock.Model.Dto
 {
-    public class MovimentacaoRequest
+    public class MovimentacaoCreateRequest
+    {
+        public TipoMovimentacao Tipo { get; set; }
+        public int Quantidade { get; set; }
+        public string CodigoProduto { get; set; }
+
+        public Movimentacao ToEntity()
+        {
+            return new Movimentacao { Tipo = Tipo, Quantidade = Quantidade };
+        }
+    }
+
+    public class MovimentacaoUpdateRequest
     {
         public int Id { get; set; }
         public int ProdutoId { get; set; }
@@ -20,13 +32,9 @@ namespace Stock.Model.Dto
 
     public class MovimentacaoResponse
     {
-        public MovimentacaoResponse(Movimentacao movimentacao)
+        public MovimentacaoResponse(Movimentacao other)
         {
-
-            Id = movimentacao.Id;
-            Quantidade = movimentacao.Quantidade;
-            CriadoEm = movimentacao.CriadoEm;
-            Tipo = movimentacao.Tipo;
+            (Id, ProdutoId, Tipo, CriadoEm, Quantidade) = (other.Id, other.ProdutoId, other.Tipo, other.CriadoEm, other.Quantidade);
         }
 
         public int Id { get; set; }
