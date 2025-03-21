@@ -19,9 +19,9 @@ namespace Stock.Domain
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<Movimentacao> Create(CreateMovimentacaoRequest item)
+        public async Task<MovimentacaoResponse> Create(MovimentacaoRequest item)
         {
-            if ((int)item.TipoMovimentacao != (int)TipoMovimentacao.Entrada && (int)item.TipoMovimentacao != (int)TipoMovimentacao.Saida)
+            if ((int)item.Tipo != (int)TipoMovimentacao.Entrada && (int)item.Tipo != (int)TipoMovimentacao.Saida)
             {
                 throw new InvalidOperationException("Tipo de movimentação inválido.");
             }
@@ -34,19 +34,21 @@ namespace Stock.Domain
             {
                 throw new InvalidOperationException("Código de produto inválido.");
             }
-            int quantidade = item.TipoMovimentacao == TipoMovimentacao.Entrada ? item.Quantidade : -item.Quantidade;
+            int quantidade = item.Tipo == TipoMovimentacao.Entrada ? item.Quantidade : -item.Quantidade;
             if (produto.Movimentacoes.Sum(x => x.Quantidade) + quantidade < 0)
             {
                 throw new InvalidOperationException("Quantidade informada gerará estoque negativo.");
             }
             Movimentacao movimentacao = new Movimentacao
             {
+                Produto = produto,
                 ProdutoId = produto.Id,
                 Quantidade = item.Quantidade,
-                Tipo = item.TipoMovimentacao,
+                Tipo = item.Tipo,
                 CriadoEm = DateTime.UtcNow
             };
-            return await _repository.Create(movimentacao);
+            await _repository.Create(movimentacao);
+            return new MovimentacaoResponse(movimentacao);
         }
 
         public async Task<RelatorioResponse> GetEstoque(DateTime dia, string codigoProduto)
@@ -72,19 +74,19 @@ namespace Stock.Domain
             return await _repository.Delete(id);
         }
 
-        public async Task<Movimentacao> GetById(int id)
+        public async Task<MovimentacaoResponse> GetById(int id)
         {
-            return await _repository.GetById(id);
+            return new MovimentacaoResponse(await _repository.GetById(id));
         }
 
-        public async Task<IEnumerable<Movimentacao>> List()
+        public async Task<IEnumerable<MovimentacaoResponse>> List()
         {
-            return await _repository.List();
+            return (await _repository.List()).Select(x => new MovimentacaoResponse(x));
         }
 
-        public async Task<int> Update(Movimentacao item)
+        public async Task<int> Update(MovimentacaoRequest item)
         {
-            return await _repository.Update(item);
+            return await _repository.Update(item.ToEntity());
         }
     }
 }

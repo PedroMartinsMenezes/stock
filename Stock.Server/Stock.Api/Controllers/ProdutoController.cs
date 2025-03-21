@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stock.Interfaces;
-using Stock.Model.Entity;
+using Stock.Model.Dto;
 using System.Threading.Tasks;
 
 namespace Stock.Api.Controllers
@@ -25,13 +25,13 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Produto entity)
+        public async Task<IActionResult> Create(ProdutoRequest entity)
         {
             return Ok(await _domain.Create(entity));
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update(Produto entity)
+        public async Task<IActionResult> Update(ProdutoRequest entity)
         {
             return await _domain.Update(entity) == 1 ? Ok() : NotFound();
         }

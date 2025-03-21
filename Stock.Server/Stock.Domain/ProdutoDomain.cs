@@ -1,6 +1,7 @@
 ﻿using Stock.Interfaces;
-using Stock.Model.Entity;
+using Stock.Model.Dto;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Stock.Domain
@@ -14,9 +15,9 @@ namespace Stock.Domain
             _repository = repository;
         }
 
-        public async Task<Produto> Create(Produto item)
+        public async Task<ProdutoResponse> Create(ProdutoRequest item)
         {
-            return await _repository.Create(item);
+            return new ProdutoResponse(await _repository.Create(item.ToEntity()));
         }
 
         public async Task<int> Delete(int id)
@@ -24,19 +25,19 @@ namespace Stock.Domain
             return await _repository.Delete(id);
         }
 
-        public async Task<Produto> GetById(int id)
+        public async Task<ProdutoResponse> GetById(int id)
         {
-            return await _repository.GetById(id);
+            return new ProdutoResponse(await _repository.GetById(id));
         }
 
-        public async Task<IEnumerable<Produto>> List()
+        public async Task<IEnumerable<ProdutoResponse>> List()
         {
-            return await _repository.List();
+            return (await _repository.List()).Select(x => new ProdutoResponse(x));
         }
 
-        public async Task<int> Update(Produto item)
+        public async Task<int> Update(ProdutoRequest item)
         {
-            return await _repository.Update(item);
+            return await _repository.Update(item.ToEntity());
         }
     }
 }

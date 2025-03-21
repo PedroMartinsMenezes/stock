@@ -5,14 +5,10 @@ namespace Stock.Model.Entity
     public class Movimentacao
     {
         public int Id { get; set; }
-
         public Produto Produto { get; set; }
         public int ProdutoId { get; set; }
-
         public TipoMovimentacao Tipo { get; set; }
-
         public DateTime CriadoEm { get; set; }
-
         public int Quantidade { get; set; }
     }
 

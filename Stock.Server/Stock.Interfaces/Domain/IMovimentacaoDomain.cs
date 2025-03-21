@@ -1,5 +1,4 @@
 ﻿using Stock.Model.Dto;
-using Stock.Model.Entity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,11 +7,11 @@ namespace Stock.Interfaces
 {
     public interface IMovimentacaoDomain
     {
-        Task<Movimentacao> Create(CreateMovimentacaoRequest item);
+        Task<MovimentacaoResponse> Create(MovimentacaoRequest item);
         Task<RelatorioResponse> GetEstoque(DateTime dia, string codigoProduto);
         Task<int> Delete(int id);
-        Task<Movimentacao> GetById(int id);
-        Task<IEnumerable<Movimentacao>> List();
-        Task<int> Update(Movimentacao item);
+        Task<MovimentacaoResponse> GetById(int id);
+        Task<IEnumerable<MovimentacaoResponse>> List();
+        Task<int> Update(MovimentacaoRequest item);
     }
 }

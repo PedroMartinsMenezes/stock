@@ -1,4 +1,4 @@
-﻿using Stock.Model.Entity;
+﻿using Stock.Model.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace Stock.Interfaces
 {
     public interface IProdutoDomain
     {
-        Task<Produto> Create(Produto item);
+        Task<ProdutoResponse> Create(ProdutoRequest item);
         Task<int> Delete(int id);
-        Task<Produto> GetById(int id);
-        Task<IEnumerable<Produto>> List();
-        Task<int> Update(Produto item);
+        Task<ProdutoResponse> GetById(int id);
+        Task<IEnumerable<ProdutoResponse>> List();
+        Task<int> Update(ProdutoRequest item);
     }
 }
