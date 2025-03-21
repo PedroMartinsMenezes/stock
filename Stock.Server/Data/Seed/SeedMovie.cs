@@ -3,18 +3,15 @@ using Stock.Server.Data;
 
 namespace MvcMovie.Models;
 
-public static class SeedData
+public static class SeedMovie
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        using (var context = new StockServerContext(
-            serviceProvider.GetRequiredService<
-                DbContextOptions<StockServerContext>>()))
+        using (var context = new StockServerContext(serviceProvider.GetRequiredService<DbContextOptions<StockServerContext>>()))
         {
-            // Look for any movies.
             if (context.Movie.Any())
             {
-                return;   // DB has been seeded
+                return;
             }
             context.Movie.AddRange(
                 new Movie

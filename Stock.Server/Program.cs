@@ -26,7 +26,8 @@ namespace Stock.Server
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                SeedData.Initialize(services);
+                SeedMovie.Initialize(services);
+                SeedProduto.Initialize(services);
             }
             #endregion
 
