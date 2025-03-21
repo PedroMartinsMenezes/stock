@@ -1,12 +1,24 @@
-﻿namespace Stock.Server.Models;
+﻿using System;
 
-public class Movimentacao
+namespace Stock.Server.Models
 {
-    public int Id { get; set; }
+    public class Movimentacao
+    {
+        public int Id { get; set; }
 
-    public Produto? Produto { get; set; }
+        public Produto Produto { get; set; }
+        public int ProdutoId { get; set; }
 
-    public string? Tipo { get; set; }
-    public DateTime? CriadoEm { get; set; }
-    public int Quantidade { get; set; }
+        public TipoMovimentacao Tipo { get; set; }
+
+        public DateTime CriadoEm { get; set; }
+
+        public int Quantidade { get; set; }
+    }
+
+    public enum TipoMovimentacao
+    {
+        Entrada = 1,
+        Saida = 2
+    }
 }

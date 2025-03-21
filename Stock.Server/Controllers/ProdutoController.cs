@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Stock.Server.Data;
 using Stock.Server.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Stock.Server.Controllers
 {
@@ -23,7 +25,7 @@ namespace Stock.Server.Controllers
         }
 
         [HttpGet("GetProdutoById")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {

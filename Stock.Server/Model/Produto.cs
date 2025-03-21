@@ -1,8 +1,15 @@
-﻿namespace Stock.Server.Models;
+﻿using System.Collections.Generic;
 
-public class Produto
+namespace Stock.Server.Models
 {
-    public int Id { get; set; }
-    public string? Nome { get; set; }
-    public string? Codigo { get; set; }
+    public class Produto
+    {
+        public int Id { get; set; }
+
+        public string Nome { get; set; }
+
+        public string Codigo { get; set; }
+
+        public ICollection<Movimentacao> Movimentacoes { get; }
+    }
 }

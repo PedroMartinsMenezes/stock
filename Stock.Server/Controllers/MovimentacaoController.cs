@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Stock.Server.Models;
 using Stock.Server.Data;
+using Stock.Server.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Stock.Server.Controllers
 {
@@ -23,7 +25,7 @@ namespace Stock.Server.Controllers
         }
 
         [HttpGet("GetMovimentacaoById")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -38,11 +40,21 @@ namespace Stock.Server.Controllers
         }
 
         [HttpPost("CreateMovimentacao")]
-        public async Task<IActionResult> Create(Movimentacao Movimentacao)
+        public async Task<IActionResult> Create(string codigoProduto, TipoMovimentacao tipoMovimentacao, int quantidade)
         {
-            _context.Add(Movimentacao);
+            if (tipoMovimentacao != TipoMovimentacao.Entrada && tipoMovimentacao != TipoMovimentacao.Saida)
+            {
+                return Ok("Tipo de movimentação inválido");
+            }
+            Produto produto = await _context.Produto.FirstOrDefaultAsync(p => p.Codigo == codigoProduto);
+            if (produto == null)
+            {
+                return Ok("Produto não encontrado");
+            }
+            Movimentacao movimentacao = new() { Quantidade = quantidade, Tipo = tipoMovimentacao, Produto = produto };
+            _context.Add(movimentacao);
             await _context.SaveChangesAsync();
-            return Ok(Movimentacao);
+            return Ok(movimentacao);
         }
 
         [HttpPost("EditMovimentacao")]

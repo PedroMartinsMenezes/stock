@@ -1,40 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Stock.Server.Data;
+using System;
+using System.Linq;
 
-namespace Stock.Server.Models;
-
-public static class SeedProduto
+namespace Stock.Server.Models
 {
-    public static void Initialize(IServiceProvider serviceProvider)
+    public static class SeedProduto
     {
-        using (var context = new StockServerContext(serviceProvider.GetRequiredService<DbContextOptions<StockServerContext>>()))
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            if (context.Produto.Any())
+            using (var context = new StockServerContext(serviceProvider.GetRequiredService<DbContextOptions<StockServerContext>>()))
             {
-                return;
+                if (context.Produto.Any())
+                {
+                    return;
+                }
+                context.Produto.AddRange(
+                    Produto("Playstation 1", "PS1"),
+                    Produto("Playstation 2", "PS2"),
+                    Produto("Playstation 3", "PS3"),
+                    Produto("Playstation 4", "PS4"),
+                    Produto("Playstation 5", "PS5"),
+                    Produto("XBOX", "XBO"),
+                    Produto("XBOX 360", "X360"),
+                    Produto("XBOX One", "XBONE"),
+                    Produto("XBOX Series S", "XBS"),
+                    Produto("XBOX Series X", "XBX")
+                );
+                context.SaveChanges();
             }
-            context.Produto.AddRange(
-                Produto("Playstation 1", "PS1"),
-                Produto("Playstation 2", "PS2"),
-                Produto("Playstation 3", "PS3"),
-                Produto("Playstation 4", "PS4"),
-                Produto("Playstation 5", "PS5"),
-                Produto("XBOX", "XBO"),
-                Produto("XBOX 360", "X360"),
-                Produto("XBOX One", "XBONE"),
-                Produto("XBOX Series S", "XBS"),
-                Produto("XBOX Series X", "XBX")
-            );
-            context.SaveChanges();
         }
-    }
 
-    private static Produto Produto(string nome, string codigo)
-    {
-        return new Produto
+        private static Produto Produto(string nome, string codigo)
         {
-            Nome = nome,
-            Codigo = codigo,
-        };
+            return new Produto
+            {
+                Nome = nome,
+                Codigo = codigo,
+            };
+        }
     }
 }

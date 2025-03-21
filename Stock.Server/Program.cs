@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Stock.Server.Models;
 using Stock.Server.Data;
+using System.IO;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using System;
+using Microsoft.Extensions.Hosting;
 
 namespace Stock.Server
 {
@@ -23,7 +29,6 @@ namespace Stock.Server
             var app = builder.Build();
 
             #region Seed Data
-
             if (Directory.Exists("Migrations"))
             {
                 using (var scope = app.Services.CreateScope())
