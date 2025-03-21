@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Stock.Model.Dto;
 using System;
 using System.Threading.Tasks;
 
@@ -15,8 +16,7 @@ namespace Stock.Server.Controllers
         [HttpGet("GetEstoque")]
         public async Task<IActionResult> GetEstoque(DateTime dia, string codigoProduto)
         {
-            await Task.CompletedTask;
-            return Ok("Em andamento");
+            return Ok(await Task.FromResult(new RelatorioResponse()));
         }
     }
 }

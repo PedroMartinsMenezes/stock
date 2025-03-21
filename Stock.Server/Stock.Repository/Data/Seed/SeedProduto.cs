@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Stock.Model;
+using Stock.Model.Entity;
 using System;
 using System.Linq;
 

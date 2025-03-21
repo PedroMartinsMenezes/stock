@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stock.Interfaces;
-using Stock.Model;
+using Stock.Model.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

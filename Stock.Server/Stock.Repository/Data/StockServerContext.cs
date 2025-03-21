@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stock.Model;
+using Stock.Model.Entity;
 
 namespace Stock.Repository
 {

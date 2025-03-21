@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stock.Interfaces;
-using Stock.Model;
+using Stock.Model.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +26,11 @@ namespace Stock.Repository
         public async Task<Produto> GetById(int id)
         {
             return await _context.Produto.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<Produto> GetByCodigo(string codigo)
+        {
+            return await _context.Produto.Include(x => x.Movimentacoes).FirstOrDefaultAsync(m => m.Codigo == codigo);
         }
 
         public async Task<IEnumerable<Produto>> List()

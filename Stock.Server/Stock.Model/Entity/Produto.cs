@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Stock.Model
+namespace Stock.Model.Entity
 {
     public class Produto
     {

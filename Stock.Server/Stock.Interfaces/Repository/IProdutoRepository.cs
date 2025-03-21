@@ -1,4 +1,4 @@
-﻿using Stock.Model;
+﻿using Stock.Model.Entity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +9,7 @@ namespace Stock.Interfaces
         Task<Produto> Create(Produto item);
         Task<int> Delete(int id);
         Task<Produto> GetById(int id);
+        Task<Produto> GetByCodigo(string codigo);
         Task<IEnumerable<Produto>> List();
         Task<int> Update(Produto item);
     }

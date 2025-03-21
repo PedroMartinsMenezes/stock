@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stock.Interfaces;
-using Stock.Model;
+using Stock.Model.Dto;
+using Stock.Model.Entity;
 using System.Threading.Tasks;
 
 namespace Stock.Api.Controllers
@@ -25,9 +26,9 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Movimentacao entity)
+        public async Task<IActionResult> Create(MovimentacaoRequest request)
         {
-            return Ok(await _domain.Create(entity));
+            return Ok(await _domain.Create(request));
         }
 
         [HttpPost("Update")]
