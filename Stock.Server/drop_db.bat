@@ -1,1 +1,0 @@
-dotnet ef database drop --force

@@ -23,10 +23,14 @@ namespace Stock.Server
             var app = builder.Build();
 
             #region Seed Data
-            using (var scope = app.Services.CreateScope())
+
+            if (Directory.Exists("Migrations"))
             {
-                var services = scope.ServiceProvider;
-                SeedProduto.Initialize(services);
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    SeedProduto.Initialize(services);
+                }
             }
             #endregion
 
