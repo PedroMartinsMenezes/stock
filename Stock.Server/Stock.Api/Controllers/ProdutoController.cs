@@ -3,18 +3,13 @@ using Stock.Interfaces;
 using Stock.Model;
 using System.Threading.Tasks;
 
-namespace Stock.Server.Controllers
+namespace Stock.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProdutoController : ControllerBase
+    public class ProdutoController(IProdutoDomain domain) : ControllerBase
     {
-        private readonly IProdutoDomain _domain;
-
-        public ProdutoController(IProdutoDomain domain)
-        {
-            _domain = domain;
-        }
+        private readonly IProdutoDomain _domain = domain;
 
         [HttpGet("List")]
         public async Task<ActionResult> List()

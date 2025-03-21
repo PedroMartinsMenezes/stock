@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Stock.Domain;
 using Stock.Repository;
+using Stock.Repository.Data.Seed;
 
 namespace Stock.Api
 {
@@ -12,10 +13,7 @@ namespace Stock.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Database
-            //builder.Services.AddDbContext<StockServerContext>(options =>
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("StockServerContext") ?? throw new InvalidOperationException("Connection string 'StockServerContext' not found.")));
-
+            //Controllers
             builder.Services.AddControllers();
 
             //Swagger
@@ -26,6 +24,7 @@ namespace Stock.Api
             builder.Services.RegisterStockRepository(builder.Configuration);
             builder.Services.RegisterStockDomain();
 
+            //App
             var app = builder.Build();
 
             #region Seed Data
@@ -37,7 +36,6 @@ namespace Stock.Api
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
