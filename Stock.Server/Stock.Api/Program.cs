@@ -1,14 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using Stock.Server.Models;
-using Stock.Server.Data;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using System;
 using Microsoft.Extensions.Hosting;
+using Stock.Domain;
+using Stock.Repository;
 
-namespace Stock.Server
+namespace Stock.Api
 {
     public class Program
     {
@@ -17,8 +13,8 @@ namespace Stock.Server
             var builder = WebApplication.CreateBuilder(args);
 
             //Database
-            builder.Services.AddDbContext<StockServerContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("StockServerContext") ?? throw new InvalidOperationException("Connection string 'StockServerContext' not found.")));
+            //builder.Services.AddDbContext<StockServerContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("StockServerContext") ?? throw new InvalidOperationException("Connection string 'StockServerContext' not found.")));
 
             builder.Services.AddControllers();
 
@@ -26,17 +22,16 @@ namespace Stock.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Bootstrap
+            builder.Services.RegisterStockRepository(builder.Configuration);
+            builder.Services.RegisterStockDomain();
+
             var app = builder.Build();
 
             #region Seed Data
-            if (Directory.Exists("Migrations"))
-            {
-                using (var scope = app.Services.CreateScope())
-                {
-                    var services = scope.ServiceProvider;
-                    SeedProduto.Initialize(services);
-                }
-            }
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            SeedProduto.Initialize(services);
             #endregion
 
             app.UseDefaultFiles();

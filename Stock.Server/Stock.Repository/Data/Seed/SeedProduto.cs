@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Stock.Server.Data;
+using Stock.Model;
 using System;
 using System.Linq;
 
-namespace Stock.Server.Models
+namespace Stock.Repository
 {
     public static class SeedProduto
     {

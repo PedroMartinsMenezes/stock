@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Stock.Server.Models
+namespace Stock.Model
 {
     public class Movimentacao
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stock.Server.Models;
+using Stock.Model;
 
-namespace Stock.Server.Data
+namespace Stock.Repository
 {
     public class StockServerContext : DbContext
     {

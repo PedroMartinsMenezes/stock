@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Stock.Server.Models
+namespace Stock.Model
 {
     public class Produto
     {
