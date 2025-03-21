@@ -26,7 +26,7 @@ namespace Stock.Api.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(MovimentacaoRequest request)
+        public async Task<IActionResult> Create(CreateMovimentacaoRequest request)
         {
             return Ok(await _domain.Create(request));
         }

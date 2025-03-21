@@ -2,7 +2,7 @@
 
 namespace Stock.Model.Dto
 {
-    public class MovimentacaoRequest
+    public class CreateMovimentacaoRequest
     {
         public string CodigoProduto { get; set; }
         public TipoMovimentacao TipoMovimentacao { get; set; }

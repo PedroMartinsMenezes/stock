@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Stock.Model.Dto;
+using Stock.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -9,14 +9,17 @@ namespace Stock.Server.Controllers
     [Route("[controller]")]
     public class RelatorioController : ControllerBase
     {
-        public RelatorioController()
+        private readonly IMovimentacaoDomain _movimentacaoDomain;
+
+        public RelatorioController(IMovimentacaoDomain movimentacaoDomain)
         {
+            _movimentacaoDomain = movimentacaoDomain;
         }
 
         [HttpGet("GetEstoque")]
         public async Task<IActionResult> GetEstoque(DateTime dia, string codigoProduto)
         {
-            return Ok(await Task.FromResult(new RelatorioResponse()));
+            return Ok(await _movimentacaoDomain.GetEstoque(dia, codigoProduto));
         }
     }
 }

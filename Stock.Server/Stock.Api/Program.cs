@@ -27,6 +27,9 @@ namespace Stock.Api
             //App
             var app = builder.Build();
 
+            //Middleware
+            app.UseMiddleware<ExceptionMiddleware>();
+
             #region Seed Data
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
