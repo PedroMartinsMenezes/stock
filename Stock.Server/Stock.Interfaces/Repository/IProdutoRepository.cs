@@ -11,6 +11,7 @@ namespace Stock.Interfaces
         Task<Produto> GetById(int id);
         Task<Produto> GetByCodigo(string codigo);
         Task<IEnumerable<Produto>> List();
+        Task<IEnumerable<Produto>> ListMovimentacoes();
         Task<int> Update(Produto item);
     }
 }

@@ -1,12 +1,20 @@
-export interface Movimentacao {
-  id?: string;
-  code?: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  quantity?: number;
-  inventoryStatus?: string;
-  category?: string;
-  image?: string;
-  rating?: number;
+export class MovimentacaoRequest {
+    tipo?: number;
+    quantidade?: number;
+    codigoProduto?: string;
+
+    constructor(tipo?: number, quantidade?: number, codigoProduto?: string) {
+        this.tipo = tipo;
+        this.quantidade = quantidade;
+        this.codigoProduto = codigoProduto;
+    }
 }
+
+export interface RelatorioResponse {
+    nomeProduto?: string;
+    codigoProduto?: string;
+    entradas?: number;
+    saidas?: number;
+    saldo?: number;
+}
+

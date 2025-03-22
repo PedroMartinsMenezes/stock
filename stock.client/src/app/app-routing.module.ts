@@ -4,7 +4,7 @@ import { TableBasicDemoComponent } from './table-basic-demo/table-basic-demo.com
 import { MovimentacaoComponent } from './movimentacao/movimentacao.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/table-basic-demo', pathMatch: 'full' },
+  { path: '', redirectTo: '/movimentacao', pathMatch: 'full' },
   { path: 'table-basic-demo', component: TableBasicDemoComponent },
   { path: 'movimentacao', component: MovimentacaoComponent }
 ];

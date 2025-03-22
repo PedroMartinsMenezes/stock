@@ -4,9 +4,11 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "localhost (Chrome)",
+      "name": "Chrome",
       "url": "https://localhost:58515",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "trace": true
     }
   ]
 }

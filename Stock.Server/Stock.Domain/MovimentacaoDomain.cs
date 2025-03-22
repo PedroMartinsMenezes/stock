@@ -21,6 +21,11 @@ namespace Stock.Domain
 
         public async Task<MovimentacaoResponse> Create(MovimentacaoCreateRequest item)
         {
+            Produto produto = await _produtoRepository.GetByCodigo(item.CodigoProduto);
+            if (produto is null)
+            {
+                throw new InvalidOperationException("Código de produto inválido.");
+            }
             if ((int)item.Tipo != (int)TipoMovimentacao.Entrada && (int)item.Tipo != (int)TipoMovimentacao.Saida)
             {
                 throw new InvalidOperationException("Tipo de movimentação inválido.");
@@ -28,11 +33,6 @@ namespace Stock.Domain
             if (item.Quantidade <= 0)
             {
                 throw new InvalidOperationException("Quantidade deve ser positiva");
-            }
-            Produto produto = await _produtoRepository.GetByCodigo(item.CodigoProduto);
-            if (produto is null)
-            {
-                throw new InvalidOperationException("Código de produto inválido.");
             }
             int quantidade = item.Tipo == TipoMovimentacao.Entrada ? item.Quantidade : -item.Quantidade;
             int quantidadeEstoque = produto.Movimentacoes.Sum(x => x.Quantidade * (x.Tipo == TipoMovimentacao.Entrada ? 1 : -1));
@@ -52,22 +52,25 @@ namespace Stock.Domain
             return new MovimentacaoResponse(movimentacao);
         }
 
-        public async Task<RelatorioResponse> GetEstoque(DateTime dia, string codigoProduto)
+        public async Task<IEnumerable<RelatorioResponse>> GetEstoque(DateTime dia, string codigoProduto)
         {
             dia = dia == default ? DateTime.UtcNow.Date : dia;
+
             Produto produto = await _produtoRepository.GetByCodigo(codigoProduto);
-            if (produto is null)
+            if (codigoProduto is not null && produto is null)
             {
                 throw new InvalidOperationException("Código de produto inválido.");
             }
-            RelatorioResponse response = new()
+
+            var list = produto is { } ? [produto] : await _produtoRepository.ListMovimentacoes();
+
+            return list.Select(produto => new RelatorioResponse
             {
                 NomeProduto = produto.Nome,
                 CodigoProduto = produto.Codigo,
-                Entradas = produto.Movimentacoes.Where(x => x.Tipo == TipoMovimentacao.Entrada && x.CriadoEm.Date == dia.Date).Sum(x => x.Quantidade),
-                Saidas = produto.Movimentacoes.Where(x => x.Tipo == TipoMovimentacao.Saida && x.CriadoEm.Date == dia.Date).Sum(x => x.Quantidade)
-            };
-            return response;
+                Entradas = (produto.Movimentacoes ?? []).Where(x => x.Tipo == TipoMovimentacao.Entrada && x.CriadoEm.Date == dia.Date).Sum(x => x.Quantidade),
+                Saidas = (produto.Movimentacoes ?? []).Where(x => x.Tipo == TipoMovimentacao.Saida && x.CriadoEm.Date == dia.Date).Sum(x => x.Quantidade)
+            });
         }
 
         public async Task<int> Delete(int id)

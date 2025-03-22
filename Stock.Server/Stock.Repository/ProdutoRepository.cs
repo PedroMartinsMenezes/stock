@@ -38,6 +38,11 @@ namespace Stock.Repository
             return await _context.Produto.ToListAsync();
         }
 
+        public async Task<IEnumerable<Produto>> ListMovimentacoes()
+        {
+            return await _context.Produto.Include(x => x.Movimentacoes).ToListAsync();
+        }
+
         public async Task<int> Update(Produto item)
         {
             return await _context.Produto

@@ -8,7 +8,7 @@ namespace Stock.Interfaces
     public interface IMovimentacaoDomain
     {
         Task<MovimentacaoResponse> Create(MovimentacaoCreateRequest item);
-        Task<RelatorioResponse> GetEstoque(DateTime dia, string codigoProduto);
+        Task<IEnumerable<RelatorioResponse>> GetEstoque(DateTime dia, string codigoProduto);
         Task<int> Delete(int id);
         Task<MovimentacaoResponse> GetById(int id);
         Task<IEnumerable<MovimentacaoResponse>> List();

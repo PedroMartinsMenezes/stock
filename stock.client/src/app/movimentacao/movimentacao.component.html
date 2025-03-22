@@ -1,5 +1,52 @@
-<div class="card flex justify-center">
+<div class="card flex justify-center p-4">
+    <p-panel header="Movimentação de Estoque">
+        <div class="card flex justify-center gap-4">
+            <input pInputText [(ngModel)]="request.codigoProduto" placeholder="Código do Produto" />
 
-    <input type="text" pInputText  />
+            <p-select [options]="tiposMovimentacao" [(ngModel)]="request.tipo" optionLabel="nome"
+                optionValue="valor" placeholder="Tipo" class="w-full md:w-56" />
 
+            <input pInputText [(ngModel)]="request.quantidade" placeholder="Quantidade" />
+
+            <p-toast />
+            <p-button (onClick)="createMovimentacao()" label="Salvar" />
+        </div>
+    </p-panel>
 </div>
+
+
+<div class="card flex justify-center p-4">
+    <p-panel header="Relatório de Estoque">
+        <div class="card flex justify-center gap-4">
+            <input pInputText [(ngModel)]="codigoProduto" placeholder="Código do Produto" />
+
+            <p-datepicker [(ngModel)]="diaEstoque" placeholder="Data da Movimentação" />
+
+            <p-toast />
+            <p-button (onClick)="getEstoque()" label="Consultar" />
+        </div>
+    </p-panel>
+</div>
+
+<div class="card flex justify-center">
+    <p-table [value]="relatorioResponse" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+        <tr>
+          <th>Nome Produto</th>
+          <th>Código Produto</th>
+          <th>Entradas</th>
+          <th>Saídas</th>
+          <th>Saldo</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-relatorioResponse>
+        <tr>
+          <td>{{ relatorioResponse.nomeProduto }}</td>
+          <td>{{ relatorioResponse.codigoProduto }}</td>
+          <td>{{ relatorioResponse.entradas }}</td>
+          <td>{{ relatorioResponse.saidas }}</td>
+          <td>{{ relatorioResponse.saldo }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
