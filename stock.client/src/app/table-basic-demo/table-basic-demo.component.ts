@@ -5,22 +5,22 @@ import { ProductService } from '../../service/productservice';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'table-basic-demo',
-  templateUrl: 'table-basic-demo.component.html',
-  standalone: true,
-  imports: [TableModule, ButtonModule],
-  providers: [ProductService]
+    selector: 'table-basic-demo',
+    templateUrl: 'table-basic-demo.component.html',
+    standalone: true,
+    imports: [TableModule, ButtonModule],
+    providers: [ProductService]
 })
 
 export class TableBasicDemoComponent implements OnInit {
-  products!: Product[];
+    products!: Product[];
 
-  constructor(private productService: ProductService) { }
+    constructor(private productService: ProductService) { }
 
-  ngOnInit() {
-    this.productService.getProductsMini().then((data) => {
-      this.products = data;
-    });
-  }
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = data;
+        });
+    }
 }
 
