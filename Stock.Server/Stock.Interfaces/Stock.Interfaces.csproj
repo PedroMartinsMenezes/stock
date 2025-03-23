@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Stock.Test" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Stock.Model\Stock.Model.csproj" />
   </ItemGroup>
 

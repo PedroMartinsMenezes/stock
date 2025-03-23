@@ -35,7 +35,7 @@ namespace Stock.Domain
                 throw new InvalidOperationException("Quantidade deve ser positiva");
             }
             int quantidade = item.Tipo == TipoMovimentacao.Entrada ? item.Quantidade : -item.Quantidade;
-            int quantidadeEstoque = produto.Movimentacoes.Sum(x => x.Quantidade * (x.Tipo == TipoMovimentacao.Entrada ? 1 : -1));
+            int quantidadeEstoque = (produto.Movimentacoes ?? []).Sum(x => x.Quantidade * (x.Tipo == TipoMovimentacao.Entrada ? 1 : -1));
             if (quantidadeEstoque + quantidade < 0)
             {
                 throw new InvalidOperationException("Quantidade informada gerará estoque negativo.");
